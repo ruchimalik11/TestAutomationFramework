@@ -3,6 +3,8 @@ package com.utility;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import com.constants.Env;
 import com.google.gson.Gson;
@@ -13,21 +15,17 @@ public class JSONUtility {
 
 	public static Environment readJSON(Env env) {
 
-		Gson gson = new Gson();
-		File jsonFile = new File(System.getProperty("user.dir") + "\\config\\config.json");
-		FileReader fileReader = null;
-		try {
-			fileReader = new FileReader(jsonFile);
+	    Gson gson = new Gson();
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Config config = gson.fromJson(fileReader, Config.class);
+	    InputStream is = JSONUtility.class.getClassLoader()
+	            .getResourceAsStream("config/config.json");
 
-		Environment environment = config.getEnvironments().get("QA");
-		return environment;
+	    if (is == null) {
+	        throw new RuntimeException("config.json not found in classpath");
+	    }
 
+	    Config config = gson.fromJson(new InputStreamReader(is), Config.class);
+
+	    return config.getEnvironments().get(env.name());
 	}
-
 }
