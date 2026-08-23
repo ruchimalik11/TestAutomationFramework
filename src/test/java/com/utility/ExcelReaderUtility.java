@@ -16,7 +16,7 @@ import com.ui.pojo.User;
 
 public class ExcelReaderUtility {
 	public static Iterator<User> readExcelFile(String fileName) {
-File xlsxFile= new File(System.getProperty("user.dir")+"//testData//LoginData.xlsx");
+File xlsxFile= new File(System.getProperty("user.dir")+"/testData/LoginData.xlsx");
 //XLSX File
 	XSSFWorkbook xssfWorkbook = null;
 	Row row;
