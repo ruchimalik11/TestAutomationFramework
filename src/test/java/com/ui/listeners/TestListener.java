@@ -50,7 +50,10 @@ public class TestListener implements ITestListener {
 	public void onTestSkipped(ITestResult result) {
 		
         logger.warn(result.getMethod().getMethodName() +" "+"SKIPPED");
-    	extentTest.log(Status.SKIP, result.getMethod().getMethodName() +" "+"SKIPPED");
+        ExtentReporterUtility.getTest().log(
+                Status.SKIP,
+                result.getMethod().getMethodName() + " SKIPPED"
+        );
 
 	}
 
